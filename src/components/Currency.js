@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-const ExpenseTotal = () => {
-    const { currency } = useContext(AppContext);
-    const [setNewCurrency] = useState(currency);
+
+const Currency = () => {
+    const { currency, setCurrency } = useContext(AppContext);
+    const [selectedCurrency, setSelectedCurrency] = useState(currency);
 
     const handleCurrencyChange = (event) => {
-        setNewCurrency(event.target.value);
-
+        const newCurrency = event.target.value;
+        setSelectedCurrency(newCurrency);
+        setCurrency(newCurrency);
     }
     return (
         <div>
-            <select name="currency" id="currency" onChange={handleCurrencyChange}>
+            <select name="currency" id="currency" value={selectedCurrency} onChange={handleCurrencyChange}>
                 <option value="$">$ Dollar</option>
                 <option value="£">£ Pound</option>
                 <option value="€">€ Euro</option>
@@ -19,4 +21,4 @@ const ExpenseTotal = () => {
         </div>
     );
 };
-export default ExpenseTotal;
+export default Currency;
